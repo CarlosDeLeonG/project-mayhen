@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.dleon.dbprog.messages.concrete;
+package com.mayhem.dbprog.messages.concrete;
 
 /**
  * Types of Messages, this Enum points out which kind is the Message sent by
