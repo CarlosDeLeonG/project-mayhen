@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 
-package com.dleon.dbprog.app;
+package com.mayhem.dbprog.app;
 
-import com.dleon.dbprog.app.data.entities.Student;
-import com.dleon.dbprog.app.data.entities.jpa.StudentJPA;
-import com.dleon.dbprog.messages.MessageListener;
-import com.dleon.dbprog.messages.MessageProducer;
-import com.dleon.dbprog.messages.concrete.Message;
-import com.dleon.dbprog.messages.concrete.MessageType;
-import com.dleon.dbprog.messages.util.MessageHandler;
+import com.mayhem.dbprog.app.data.entities.Student;
+import com.mayhem.dbprog.app.data.entities.jpa.StudentJPA;
+import com.mayhem.dbprog.messages.MessageListener;
+import com.mayhem.dbprog.messages.MessageProducer;
+import com.mayhem.dbprog.messages.concrete.Message;
+import com.mayhem.dbprog.messages.concrete.MessageType;
+import com.mayhem.dbprog.messages.util.MessageHandler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;

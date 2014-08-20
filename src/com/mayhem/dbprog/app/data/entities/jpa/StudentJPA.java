@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package com.dleon.dbprog.app.data.entities.jpa;
+package com.mayhem.dbprog.app.data.entities.jpa;
 
-import com.dleon.dbprog.app.data.entities.Student;
+import com.mayhem.dbprog.app.data.entities.Student;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;

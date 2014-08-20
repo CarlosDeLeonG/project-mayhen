@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package com.dleon.dbprog.messages.util;
+package com.mayhem.dbprog.messages.util;
 
 
 
-import com.dleon.dbprog.messages.MessageListener;
-import com.dleon.dbprog.messages.concrete.Message;
+import com.mayhem.dbprog.messages.MessageListener;
+import com.mayhem.dbprog.messages.concrete.Message;
 import java.util.ArrayList;
 import java.util.List;
 

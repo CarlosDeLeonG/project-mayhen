@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.dleon.dbprog.app.data.entities;
+package com.mayhem.dbprog.app.data.entities;
 
 import java.util.Date;
 

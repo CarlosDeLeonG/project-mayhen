@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.dleon.dbprog.messages.concrete;
+package com.mayhem.dbprog.messages.concrete;
 
 /**
  * Message used in order to comunicate issues and results,
