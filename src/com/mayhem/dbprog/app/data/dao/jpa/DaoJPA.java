@@ -21,7 +21,7 @@ public abstract class DaoJPA {
     /**
      * 
      */
-    protected static EntityManagerFactory emf = Persistence.createEntityManagerFactory("projectPU");
+    protected static EntityManagerFactory emf = Persistence.createEntityManagerFactory("databaseprojectPU");
 
     /**
      * Object required for handling entities.

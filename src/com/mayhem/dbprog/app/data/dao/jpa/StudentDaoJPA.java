@@ -23,7 +23,6 @@ public class StudentDaoJPA extends DaoJPA implements StudentDao{
     
     public StudentDaoJPA() {
         super();
-        //addListener(new ErrorJpaListener());
     }
     
     @Override
@@ -34,7 +33,6 @@ public class StudentDaoJPA extends DaoJPA implements StudentDao{
             em.persist(student);
             commit();
         } catch (Exception e) {
-            //reportError(e);
             rollback();
         } 
         return student;
@@ -55,10 +53,5 @@ public class StudentDaoJPA extends DaoJPA implements StudentDao{
         handler.sendMessage(message);
     }
     
-    /*protected void reportError(Exception e) {
-    Object m[] = new Object[]{e, "Sorry, data error occurred..!"};
-    Message message = new Message(MessageType.DATA_ERROR, m);
-    sendMessage(message);
-    }*/
     
 }

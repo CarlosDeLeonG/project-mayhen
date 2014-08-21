@@ -6,18 +6,14 @@
 
 package com.mayhem.dbprog.app;
 
-import com.mayhem.dbprog.app.data.dao.DaoFactory;
-import com.mayhem.dbprog.app.data.dao.DaoType;
-import com.mayhem.dbprog.app.data.dao.StudentDao;
+import com.mayhem.dbprog.app.data.dao.*;
 import com.mayhem.dbprog.app.data.entities.Student;
-import com.mayhem.dbprog.app.data.entities.jpa.StudentJPA;
 import com.mayhem.dbprog.messages.*;
 import com.mayhem.dbprog.messages.concrete.*;
 import com.mayhem.dbprog.messages.util.MessageHandler;
 import java.io.*;
 import java.util.Date;
 import java.util.logging.*;
-import javax.persistence.*;
 
 
 
@@ -28,13 +24,17 @@ import javax.persistence.*;
 public class App implements MessageProducer {
     private MessageHandler handler;
     private MessageEntityListener entityReceiver;
-    private File file;
-    
+   
     public App(String path) throws FileNotFoundException {
         handler = new MessageHandler();
         entityReceiver = new MessageEntityListener();
         
         this.addListener(entityReceiver);
+        
+        TestDao test = new TestDao();
+        Student s = test.testDao();
+        if (s.getId() != null)
+            sendMessage(new Message(MessageType.TEST, new Object[] {s, "Student Created"}));
     }
     
     public static void main(String[] args) {
@@ -43,15 +43,10 @@ public class App implements MessageProducer {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Student s = testDao();
         
     }
     
-    private static Student testDao() {
-        StudentDao dao = DaoFactory.getStudentDao(DaoType.JPA);
-        Student s = dao.createStudent("Sammy", "Khedyra", new Date());
-        return s;    
-    }
+    
     
     @Override
     public void addListener(MessageListener listener) {
@@ -68,23 +63,15 @@ public class App implements MessageProducer {
         handler.sendMessage(message);
     } 
 
-    public static void persist(Object object) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("databaseprojectPU");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        try {
-            em.persist(object);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
-    }
-    
 }
 
+class TestDao {
+    protected Student testDao() {
+        StudentDao dao = DaoFactory.getStudentDao(DaoType.JPA);
+        Student s = dao.createStudent("Sammy", "Khedyra", new Date());
+        return s;    
+    }
+}
 
 class MessageEntityListener implements MessageListener {
 
