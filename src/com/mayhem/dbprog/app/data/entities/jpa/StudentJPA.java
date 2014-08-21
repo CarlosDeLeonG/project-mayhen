@@ -117,7 +117,7 @@ public class StudentJPA implements Serializable, Student {
 
     @Override
     public String toString() {
-        return "com.dleon.dbprog.app.data.entities.jpa.StudentJPA[ id=" + id + " ]";
+        return "Student[id=" + id + "]" + name + " " + lastName;
     }
     
 }

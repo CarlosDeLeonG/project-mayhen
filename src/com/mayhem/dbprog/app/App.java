@@ -6,22 +6,18 @@
 
 package com.mayhem.dbprog.app;
 
+import com.mayhem.dbprog.app.data.dao.DaoFactory;
+import com.mayhem.dbprog.app.data.dao.DaoType;
+import com.mayhem.dbprog.app.data.dao.StudentDao;
 import com.mayhem.dbprog.app.data.entities.Student;
 import com.mayhem.dbprog.app.data.entities.jpa.StudentJPA;
-import com.mayhem.dbprog.messages.MessageListener;
-import com.mayhem.dbprog.messages.MessageProducer;
-import com.mayhem.dbprog.messages.concrete.Message;
-import com.mayhem.dbprog.messages.concrete.MessageType;
+import com.mayhem.dbprog.messages.*;
+import com.mayhem.dbprog.messages.concrete.*;
 import com.mayhem.dbprog.messages.util.MessageHandler;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.logging.*;
+import javax.persistence.*;
 
 
 
@@ -31,23 +27,14 @@ import javax.persistence.Persistence;
  */
 public class App implements MessageProducer {
     private MessageHandler handler;
-    private MessageTestListener receiver;
-    private MessageStreamListener streamReceiver;
+    private MessageEntityListener entityReceiver;
     private File file;
     
     public App(String path) throws FileNotFoundException {
         handler = new MessageHandler();
-        receiver = new MessageTestListener();
-        file = new File(path);
-        streamReceiver = new MessageStreamListener(new PrintStream(file));
+        entityReceiver = new MessageEntityListener();
         
-        
-        this.addListener(receiver);
-        this.addListener(streamReceiver);
-        
-        throwMessage("Hello World!");
-        
-
+        this.addListener(entityReceiver);
     }
     
     public static void main(String[] args) {
@@ -56,17 +43,14 @@ public class App implements MessageProducer {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
-        testJPAConnection();
+        Student s = testDao();
+        
     }
     
-    private static void testJPAConnection() {
-        Student student = new StudentJPA("CARLOS", "DE LEON", new Date());
-        persist(student);
-    }
-   
-    
-    private void throwMessage(String messageTxt) {
-        this.sendMessage(new Message(MessageType.TEST, messageTxt));
+    private static Student testDao() {
+        StudentDao dao = DaoFactory.getStudentDao(DaoType.JPA);
+        Student s = dao.createStudent("Sammy", "Khedyra", new Date());
+        return s;    
     }
     
     @Override
@@ -101,27 +85,15 @@ public class App implements MessageProducer {
     
 }
 
-class MessageTestListener implements MessageListener {
+
+class MessageEntityListener implements MessageListener {
 
     @Override
     public void messageReceived(Message message) {
-        String textMessage = (String) message.getBody();
-        System.out.println("Message: " + textMessage);
+        Object entityMessage[] = (Object[])message.getBody();
+        Object entity = entityMessage[0];
+        String text = (String)entityMessage[1];
+        System.out.println("Message: " + text + " " + entity);
     }
     
-}
-
-class MessageStreamListener implements MessageListener {
-
-    private PrintStream stream;
-
-    public MessageStreamListener(PrintStream stream) {
-        this.stream = stream;
-    }
-    
-    @Override
-    public void messageReceived(Message message) {
-        String textMessage = (String) message.getBody();
-        stream.println("Message: " + textMessage);
-    }
 }
