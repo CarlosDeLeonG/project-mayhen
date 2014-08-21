@@ -25,7 +25,7 @@ public class App implements MessageProducer {
     private MessageHandler handler;
     private MessageEntityListener entityReceiver;
    
-    public App(String path) throws FileNotFoundException {
+    public App(String path) {
         handler = new MessageHandler();
         entityReceiver = new MessageEntityListener();
         
@@ -40,7 +40,7 @@ public class App implements MessageProducer {
     public static void main(String[] args) {
         try {
             new App(args[0]);
-        } catch (FileNotFoundException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -68,7 +68,7 @@ public class App implements MessageProducer {
 class TestDao {
     protected Student testDao() {
         StudentDao dao = DaoFactory.getStudentDao(DaoType.JPA);
-        Student s = dao.createStudent("Sammy", "Khedyra", new Date());
+        Student s = dao.createStudent("Gónzalo", "Iguaín", new Date());
         return s;    
     }
 }
